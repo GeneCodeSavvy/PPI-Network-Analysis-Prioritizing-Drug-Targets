@@ -1,5 +1,5 @@
 #ignoring files because they are large
-data/summary_stats/*
+data/summary_stats/AnsteeQM.tsv
 data/output/*/snp_chr_pos_p.csv
 data/gene_with_protein_products.tsv
 

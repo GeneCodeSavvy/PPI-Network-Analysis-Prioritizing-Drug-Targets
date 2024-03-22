@@ -1,6 +1,6 @@
 #ignoring files because they are large
 data/summary_stats/AnsteeQM.tsv
-data/output/*/snp_chr_pos_p.csv
+data/output/*/
 data/gene_with_protein_products.tsv
 
 #.DS_store file

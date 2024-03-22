@@ -4,27 +4,34 @@ import numpy as np
 import pandas as pd
 
 def main(paper:list) :
-    df = pd.read_csv(paper[0], sep=paper[1])
-    df = utils.rename_col_summary_stats(df)
-    query = df["SNP"].tolist()
-    genes = utils.batched_gprofiler(query, batch_size=30)
-    genes = utils.extract_first_element(df= genes, columns=["ensgs", "gene_names"])
-    df = utils.rsids2gene(df, genes)
-    merged_df = utils.genes_with_proteins(protein, df)
-    snp2gene = merged_df[["ensgs", "SNP"]]
-    snp_chr_pos_p = df[["SNP", "CHR", "BP", "P"]]
     output_dir = paper[2]
-    snp2gene_file = str(output_dir/"snp2gene.csv")
-    snp_chr_pos_p_file = str(output_dir/"snp_chr_pos_p.csv")
-    snp2gene.to_csv(snp2gene_file, index=False, header=["gene", "SNP"])
-    snp_chr_pos_p.to_csv(snp_chr_pos_p_file, index=False, header=["SNP", "chr", "pos", "p"])
-    utils.run_fastCGP(snp2gene_file=snp2gene_file, snp_chr_pos_p_file=snp_chr_pos_p_file)
-    sigmod_edges, sigmod_nodes = utils.sigmod_input(edgefile=str(output_dir/"network_edges.csv"), 
-                                     edgefile=str(output_dir/"network_nodes.csv"), 
-                                     genefile=str(output_dir/"computed_gene_p_values.tsv"))
-    sigmod_edges.to_csv(output_dir/"sigmod_edges.tsv", index=False)
-    sigmod_nodes.to_csv(output_dir/"sigmod_nodes.tsv", index=False)
 
+    if (output_dir/"network_edges.csv").exists() and (output_dir/"network_nodes.csv").exists() and (output_dir/"computed_gene_p_values.tsv").exists():
+        sigmod_edges, sigmod_nodes = utils.sigmod_input(edgefile=str(output_dir/"network_edges.csv"), 
+                                     nodefile=str(output_dir/"network_nodes.csv"), 
+                                     genefile=str(output_dir/"computed_gene_p_values.tsv"))
+        edges = output_dir/"sigmod_edges.tsv"
+        nodes = output_dir/"sigmod_nodes.tsv"
+        sigmod_edges.to_csv(edges, index=False)
+        sigmod_nodes.to_csv(nodes, index=False)
+        utils.run_sigmod(sigmod_node=nodes, sigmod_edge=edges)
+    
+    else:
+        df = pd.read_csv(paper[0], sep=paper[1])
+        df = utils.rename_col_summary_stats(df)
+        query = df["SNP"].tolist()
+        genes = utils.batched_gprofiler(query, batch_size=30)
+        genes = utils.extract_first_element(df= genes, columns=["ensgs", "gene_names"])
+        df = utils.rsids2gene(df, genes)
+        merged_df = utils.genes_with_proteins(protein, df)
+        snp2gene = merged_df[["ensgs", "SNP"]]
+        snp_chr_pos_p = df[["SNP", "CHR", "BP", "P"]]
+        snp2gene_file = str(output_dir/"snp2gene.csv")
+        snp_chr_pos_p_file = str(output_dir/"snp_chr_pos_p.csv")
+        snp2gene.to_csv(snp2gene_file, index=False, header=["gene", "SNP"])
+        snp_chr_pos_p.to_csv(snp_chr_pos_p_file, index=False, header=["SNP", "chr", "pos", "p"])
+        utils.run_fastCGP(snp2gene_file=snp2gene_file, snp_chr_pos_p_file=snp_chr_pos_p_file)
+    
 
 if __name__ == "__main__":
     summary_stats_file : Path = Path("data/summary_stats")

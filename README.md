@@ -15,7 +15,7 @@ This Python script is designed for analyzing summary statistics data obtained fr
 
 GWAS generate summary statistics files containing information about the genetic variants such as SNPs (Single Nucleotide Polymorphisms), their genomic locations, and associated statistical metrics like p-values. Analyzing such data can provide insights into the genetic basis of various traits and diseases.
 
-GWAS explore the genetic causes ofcomplex diseases. However, classical approaches ignore the biological context ofthe genetic variants and genes under study. To address this shortcoming, one can use biological networks, which model functional relationships, tosearch for functionally related susceptibility loci. This project tries to analyse the GWAS results with SigMod.
+GWAS explore the genetic causes ofcomplex diseases. However, classical approaches ignore the biological context of the genetic variants and genes under study. To address this shortcoming, one can use biological networks, which model functional relationships, tosearch for functionally related susceptibility loci. This project tries to analyse the GWAS results with SigMod.
 
 SigMod is a novel and efficient method integrating GWAS results and gene network to identify a strongly interconnected gene module enriched in high association signals.
 

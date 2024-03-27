@@ -18,7 +18,7 @@ def infer_delimiter(file_path):
         raise ValueError("Unsupported file extension. Please provide a CSV, TSV, or TXT file.")
     
 def rename_col_summary_stats(summary_stats_file):
-    # Standardize column names, select relevant columns, and create BED format
+    # Standardize column names, select relevant columns
     summary_stats_file = summary_stats_file.rename(columns={
         'variant_id': 'SNP',
         'base_pair_location': 'BP',

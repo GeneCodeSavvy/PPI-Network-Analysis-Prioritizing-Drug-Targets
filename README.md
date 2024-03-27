@@ -1,11 +1,10 @@
 # PPI-Network-Analysis-Prioritizing-Drug-Targets
 
-This Python script is designed for analyzing summary statistics data obtained from genetic studies. It offers functionalities for processing data, conducting gene-level analyses, and preparing input for further downstream analysis using SIGMOD (Significance Analysis of Gene MODules). Below is a detailed description of the functionalities and usage instructions for the script.
+This Python script is designed for analyzing summary statistics data obtained from Genome Wide Association studies (GWAS). It offers functionalities for processing data, conducting gene-level analyses, and preparing input for further downstream analysis with SigMod. Below is a detailed description of the functionalities and usage instructions for the script.
 
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Features](#features)
 - [Requirements](#requirements)
 - [Usage](#usage)
 - [Input](#input)
@@ -14,23 +13,20 @@ This Python script is designed for analyzing summary statistics data obtained fr
 
 ## Introduction
 
-Genetic studies often generate summary statistics files containing information about genetic variants such as SNPs (Single Nucleotide Polymorphisms), their genomic locations, and associated statistical metrics like p-values. Analyzing such data can provide insights into the genetic basis of various traits and diseases.
+GWAS generate summary statistics files containing information about the genetic variants such as SNPs (Single Nucleotide Polymorphisms), their genomic locations, and associated statistical metrics like p-values. Analyzing such data can provide insights into the genetic basis of various traits and diseases.
+
+GWAS explore the genetic causes ofcomplex diseases. However, classical approaches ignore the biological context ofthe genetic variants and genes under study. To address this shortcoming, one can use biological networks, which model functional relationships, tosearch for functionally related susceptibility loci. This project tries to analyse the GWAS results with SigMod.
+
+SigMod is a novel and efficient method integrating GWAS results and gene network to identify a strongly interconnected gene module enriched in high association signals.
 
 This Python script automates the analysis process by performing the following tasks:
 
-1. **Data Preprocessing**: Standardizes column names, selects relevant columns, and prepares data in BED format.
-2. **Gene Annotation**: Utilizes the g:Profiler tool to annotate SNPs with associated genes.
-3. **Protein Association**: Identifies genes associated with protein products.
-4. **FastCGP Computation**: Runs the FastCGP algorithm for gene-level p-value computation.
-5. **SIGMOD Preparation and Analysis**: Prepares input data for SIGMOD analysis and executes the SIGMOD algorithm for identifying significant gene modules.
+1. **Data Preprocessing**: Functions for inferring delimiter types, standardizing column names, and extracting relevant information from input files.
+2. **Gene Annotation**: Methods to annotate genetic variants with gene information and prepare data for downstream analysis.
+3. **Protein Association**: Automation of filtering genes associated with proteins, linking genetic variants to protein-related data.
+4. **FastCGP Computation**: Execution of FastCGP analysis, facilitating gene-level p-value computation for genetic variants.
+5. **SIGMOD Preparation and Analysis**: Functions for preparing input data and executing Sigmod analysis, enabling the study of gene interactions and associations.
 
-## Features
-
-- Supports CSV, TSV, and TXT file formats for summary statistics data.
-- Batch processing for efficient annotation of large datasets.
-- Automated handling of missing or incomplete data.
-- Integration with external tools like g:Profiler and SIGMOD.
-- Progress tracking using tqdm for better user experience.
 
 ## Requirements
 

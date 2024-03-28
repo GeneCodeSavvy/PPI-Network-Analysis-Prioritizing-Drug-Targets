@@ -25,6 +25,14 @@ def main(paper: Tuple[Path, str, Path]) -> None:
         
         # Running SIGMOD
         utils.run_sigmod(sigmod_node=nodes, sigmod_edge=edges)
+
+        # Converting Ensembl identifier to Gene Symbol
+        solution_file : str = str(output_dir/ "Subnetwork/selected_genes.tab")
+        solution : pd.DataFrame = pd.read_csv(solution_file, sep="\t")
+        solution : pd.DataFrame = utils.ensgs2name(solution)
+        
+        # Saving the genes in the solution network 
+        solution.to_csv(str(output_dir/"Solution_Subnetwork.tsv"), sep="\t", index=False)
     
     else:
         # If required files are missing, process summary statistics

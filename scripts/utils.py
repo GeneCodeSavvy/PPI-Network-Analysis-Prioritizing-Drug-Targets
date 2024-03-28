@@ -139,3 +139,11 @@ def run_sigmod(sigmod_node, sigmod_edge):
         print("Error:", e)
         print("Sigmod computation failed.")
 
+def ensgs2name(dataframe):
+    query_ensgs = dataframe["gene"].tolist()
+    gp = GProfiler(return_dataframe=True)
+    df = gp.convert(organism='hsapiens',
+                query=query_ensgs,
+                target_namespace='GENECARDS')
+    return df[["incoming","name"]]
+

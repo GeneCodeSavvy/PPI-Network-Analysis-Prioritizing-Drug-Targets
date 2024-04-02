@@ -32,32 +32,47 @@ This Python script automates the analysis process by performing the following ta
 
 - Python 3.x
 - Required Python libraries: `numpy`, `pandas`, `gprofiler`, `tqdm`
-
-## Usage
-
-1. **Prepare Input Data**: Ensure that your summary statistics files are stored in a directory (`data/summary_stats` by default).
-2. **Install Dependencies**: Install the required Python libraries using `pip install -r requirements.txt`.
-3. **Run the Script**: Execute the script `main.py`.
-4. **Monitor Progress**: The script will provide updates on the progress of each analysis step.
-5. **Review Output**: Check the output directory (`data/output` by default) for the processed data and analysis results.
+- Cytoscape Software
+- Required Cytoscape Plugins: `CytoHubba`, `Stringdb`
 
 ## Input
 
-The script expects summary statistics files in CSV, TSV, or TXT format. Each file should contain columns representing variant ID (`variant_id`), base pair location (`base_pair_location`), chromosome (`chromosome`), and p-value (`p_value`). Optionally, the file may include additional columns such as SNP ID (`rs_id`).
+The script expects summary statistics files in CSV, TSV, or TXT format. Each file should contain columns representing variant ID (`variant_id`), base pair location (`base_pair_location`), chromosome (`chromosome`), and p-value (`p_value`). Optionally, the file may include additional columns.
+The script also expects `gene_with_protein_products.tsv` in the `\data\` folder.
+
+## Usage
+
+### Part I- Processing GWAS summary statistics for analyses.
+
+1. **Prepare Input Data**: Ensure that your summary statistics files are stored in the directory `data/summary_stats/` .
+2. **Run the Script**: Execute the script `main.py`.
+3. **Monitor Progress**: The script will provide updates on the progress of each analysis step.
+4. **Review Output**: Check the output directory for the processed data and analysis results.
+
+### Part II- Analysis of the network
+1. **Prepare Input Data**: Use `computed_genes.tsv` to generate a Protein Protein Interaction Network in Cytoscape using Stringdb plugin
+2. **Save Network files**: Save the edge table and node table as `network_edges.csv` and `network_nodes.csv` respectively in the `data/summary_stat/*`
+3. **Run the Script**: Execute the script `main.py`
+4. **Review Output**: Check the output directory for the results.
+
 
 ## Output
 
+### Part I - Processing GWAS summary statistics for analyses
 The script generates the following output:
-
-- Processed data files:
+A folder with the name of the summary statistic file is created
+- Processed data files in the new folder:
   - `snp2gene.csv`: Mapping of SNPs to associated genes.
   - `snp_chr_pos_p.csv`: SNP information including chromosome, position, and p-value.
+  - `computed_gene_p_value.tsv`: Genes and their respective calculated p-value
+  - `computed_genes.tsv`: List of Genes from the `computed_gene_p_value.tsv` file
+
+### Part II - Analysis of the network 
 - Analysis results:
   - Gene-level p-values computed using FastCGP.
   - SIGMOD input files (`sigmod_edges.tsv` and `sigmod_nodes.tsv`) prepared for further analysis.
 
 ## Additional Notes
 
-- Ensure that the necessary input files (`gene_with_protein_products.tsv`) are available in the specified locations.
 - Customize file paths and settings in the script as per your requirements.
-- For detailed information on the algorithm implementations and methodologies used, refer to the respective documentation of external tools like g:Profiler and SIGMOD.
+- For detailed information on the algorithm implementations and methodologies used, refer to the respective documentation of external tools like g:Profiler, SigMod and fastCGP.

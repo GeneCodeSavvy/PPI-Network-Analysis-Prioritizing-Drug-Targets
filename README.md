@@ -64,13 +64,13 @@ A folder with the name of the summary statistic file is created
 - Processed data files in the new folder:
   - `snp2gene.csv`: Mapping of SNPs to associated genes.
   - `snp_chr_pos_p.csv`: SNP information including chromosome, position, and p-value.
-  - `computed_gene_p_value.tsv`: Genes and their respective calculated p-value
+  - `computed_gene_p_value.tsv`: Genes and their respective calculated p-value using fastCGP
   - `computed_genes.tsv`: List of Genes from the `computed_gene_p_value.tsv` file
 
 ### Part II - Analysis of the network 
 - Analysis results:
-  - Gene-level p-values computed using FastCGP.
-  - SIGMOD input files (`sigmod_edges.tsv` and `sigmod_nodes.tsv`) prepared for further analysis.
+  - SigMod input files (`sigmod_edges.tsv` and `sigmod_nodes.tsv`) prepared for further analysis.
+  - `data/output/*/SubNetwork` folder  containing Sigmod results is created. This folder has the solution network.
 
 ## Additional Notes
 
